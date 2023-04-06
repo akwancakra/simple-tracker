@@ -113,6 +113,11 @@ function convertUnixTime(unix) {
     return `${day}, ${date}-${month}-${year}`;
 }
 
+// BIKIN FUNGSI BUAT DAPETIN DETAIL MATCH MENGGUNAKAN MATCHID
+function detailMatch(id){
+    // CODE RIGHT HERE
+}
+
 try {
     const accountName = await getInput("Masukan akun NAMA#TAG\t: ");
     [NAME, TAG] = accountName.split('#');
