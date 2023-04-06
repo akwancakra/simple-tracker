@@ -1,7 +1,9 @@
 # Simple Valorant Tracker
 
 This application is specifically designed and developed to track players based on the input provided, enabling effective monitoring and analysis of player performance, statistics, and other relevant information.
-\nCreated by <a href="https://instagram.com/akwancakra/">me</a>
+<br>Created by 
+|No|Nama|NIM|
+|1|<a href="https://instagram.com/akwancakra/" target="_blank">Akwan Cakra Tajimalela</a>|2209098|
 
 ## How to use
 
