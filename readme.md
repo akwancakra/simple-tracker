@@ -8,11 +8,11 @@ Created by <a href="https://instagram.com/akwancakra/">me</a>
 ### Installation
 1. Make sure you have installed Node.js on your computer.
 2. Clone this repository by running the following command in terminal:
-```
+```bash
 git clone https://github.com/akwancakra/simple-tracker.git
 ```
 3. Go to the project directory and run the npm install command to install all required dependencies.
-```
+```bash
 cd simple-tracker
 npm install
 ```
