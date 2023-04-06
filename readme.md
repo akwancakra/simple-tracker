@@ -5,7 +5,7 @@ Created by <a href="https://instagram.com/akwancakra/">me</a>
 
 ## How to use
 
-### Instalasi
+### Installation
 1. Make sure you have installed Node.js on your computer.
 2. Clone this repository by running the following command in terminal:
 ```
