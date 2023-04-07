@@ -1,15 +1,15 @@
-import ValorantApi from 'unofficial-valorant-api';
 import chalk from 'chalk';
-import readline from 'readline';
 import clear from 'clear';
+import readline from 'readline';
+import ValorantApi from 'unofficial-valorant-api';
 import { match } from 'assert';
 
 // =======================================
 //
-// AKWAN CAKRA TAJIMALELA
-// 2209098
+// AKWAN CAKRA TAJIMALELA (2209098)
+// MOHAMMAD RAYA SATRIATAMA (2206418)
 // RPL 2B
-//
+// 
 // =======================================
 
 let NAME, TAG, LEVEL, SERVER, RANK, PUUID;
@@ -27,22 +27,27 @@ async function getInput(QUESTION) {
     });
 }
 
-function accountInfo(account, rank){
+function accountInfo (account, rank){
     // NAME = account.data.name;
     if(account){
         LEVEL = account.data.account_level;
         PUUID = account.data.puuid;
-        
-        if (account.data.region == "ap") {
-            SERVER = "Asia-Pacific";
-        } else if (account.data.region == "na") {
-            SERVER = "North America";
-        } else if (account.data.region == "eu") {
-            SERVER = "Europe";
-        } else if (account.data.region == "kr") {
-            SERVER = "Korea";
-        } else {
-            console.log("Region\t\t: Not Identified");
+
+        switch(account.data.region) {
+            case "ap":
+                SERVER = "Asia-Pacific";
+                break;
+            case "na":
+                SERVER = "North America";
+                break;
+            case "eu":
+                SERVER = "Europe";
+                break;
+            case "kr":
+                SERVER = "Korea";
+                break;
+            default:
+                console.log("Region\t\t: Not Identified");
         }
     }
 
@@ -52,16 +57,15 @@ function accountInfo(account, rank){
 }
 
 async function getRank(version, region, name, tag, filter) {
-    try {
-        const act = await Val.getMMR({ version, region, name, tag, filter });
-        if (act.error) {
-            console.log(act.status);
-        } else {
-            return act.data.final_rank_patched;
-        }
-    } catch (error) {
-        console.error(error);
+  try {
+    const act = await Val.getMMR({ version, region, name, tag, filter });
+    if (!act.error) {
+      return act.data.final_rank_patched;
     }
+    console.log(act.status);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 try {
@@ -114,19 +118,12 @@ try {
                 if (yourPlayer.team == "Red") {
                     console.log(`R. Won\t: ${match.teams.red.rounds_won}`);
                     console.log(`R. Lost\t: ${match.teams.red.rounds_lost}`);
-                    if (match.teams.red.has_won) {
-                        result = "WON";
-                    }else{
-                        result = "LOST";
-                    }
+                    result = match.teams.red.has_won ? "WON" : "LOST";
+
                 } else {
                     console.log(`R. Won\t: ${match.teams.blue.rounds_won}`);
                     console.log(`R. Lost\t: ${match.teams.blue.rounds_lost}`);
-                    if (match.teams.blue.has_won) {
-                        result = "WON";
-                    }else{
-                        result = "LOST";
-                    }
+                    result = match.teams.blue.has_won ? "WON" : "LOST";
                 }
 
                 if (result == "WON") {
