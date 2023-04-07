@@ -5,6 +5,7 @@ This application is specifically designed and developed to track players based o
 | <b>No</b> | <b>Nama</b> | <b>NIM</b> |
 |----|------|-----|
 | 1 | <a href="https://instagram.com/akwancakra/" target="_blank">Akwan Cakra Tajimalela</a> | 2209098 |
+| 2 | <a href="https://instagram.com/rayasatriatama10" target="_blank">Mohammad Raya Satriatama</a> | 2206418 |
 
 ## How to use
 
