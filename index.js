@@ -7,6 +7,7 @@ import ValorantApi from 'unofficial-valorant-api';
 //
 // AKWAN CAKRA TAJIMALELA (2209098)
 // MOHAMMAD RAYA SATRIATAMA (2206418)
+// RAFA GYIZA RASHIEKA (2207049)
 // RPL 2B
 // 
 // =======================================
@@ -133,6 +134,74 @@ try {
             }
         });
     }
+
+    let menuChoice;
+    do {
+        menuChoice = await getInput("Silakan pilih salah satu menu:\n[1] Cari detail pertandingan\n[2] Exit\n");
+        if (menuChoice == 1) {
+            console.log("-----------------------------------------");
+            let matchNumStr = await getInput("Masukan Match (co: 1,2,3)\t: ");
+            let matchNum = parseInt(matchNumStr);
+    
+            console.log("Sedang memuat data dari API...");
+            const match = matches.data[matchNum-1];
+            clear();
+
+            // console.log(match.players);
+            const yourPlayer = match.players.all_players.find(player => player.puuid == PUUID);
+            const kda = yourPlayer.stats.kills + "/" + yourPlayer.stats.deaths + "/" + yourPlayer.stats.assists;
+            const team = yourPlayer.team;
+            const agent = yourPlayer.character;
+            const current_rank = yourPlayer.currenttier_patched;
+            let result;
+
+            match.players.all_players.sort((a, b) => b.stats.score - a.stats.score);
+            const index = match.players.all_players.findIndex(player => player.puuid === PUUID);
+            
+            console.log(`--------------Detail Game ${matchNum}--------------`);
+            console.log(`Tanggal\t: ${convertUnixTime(match.metadata.game_start)}`);
+            console.log(`Map\t: ${match.metadata.map}`);
+            console.log(`Mode\t: ${match.metadata.mode}`);
+            console.log(`Server\t: ${match.metadata.cluster}`);
+            console.log("-----------------DETAIL------------------");
+            console.log(`Team\t: ${team}`);
+            console.log(`No\t: #${index}`);
+            console.log(`Agent\t: ${agent}`);
+            console.log(`Rank\t: ${current_rank}`);
+            console.log(`KDA\t: ${kda}`);
+
+            if (yourPlayer.team == "Red") {
+                console.log(`R. Won\t: ${match.teams.red.rounds_won}`);
+                console.log(`R. Lost\t: ${match.teams.red.rounds_lost}`);
+                if (match.teams.red.has_won) {
+                    result = "WON";
+                }else{
+                    result = "LOST";
+                }
+            } else {
+                console.log(`R. Won\t: ${match.teams.blue.rounds_won}`);
+                console.log(`R. Lost\t: ${match.teams.blue.rounds_lost}`);
+                if (match.teams.blue.has_won) {
+                    result = "WON";
+                }else{
+                    result = "LOST";
+                }
+            }
+
+            if (result == "WON") {
+                console.log(`Result\t: ${chalk.greenBright(result)}\n`);
+            } else if (result == "LOST") {
+                console.log(`Result\t: ${chalk.redBright(result)}\n`);
+            }
+        // Lakukan aksi untuk mencari detail pertandingan
+        } else if (menuChoice == 2) {
+            console.log("Terima kasih telah menggunakan program.");
+            process.exit();
+        } else {
+            console.log("Menu yang Anda pilih tidak tersedia.");
+        }
+    } while (menuChoice < 1 || menuChoice > 2);
+
     console.log("Terima kasih telah menggunakan program.");
     process.exit();
 } catch (error) {

@@ -6,6 +6,7 @@ This application is specifically designed and developed to track players based o
 |----|------|-----|
 | 1 | <a href="https://instagram.com/akwancakra/" target="_blank">Akwan Cakra Tajimalela</a> | 2209098 |
 | 2 | <a href="https://instagram.com/rayasatriatama10" target="_blank">Mohammad Raya Satriatama</a> | 2206418 |
+| 3 | <a href="https://instagram.com/rafargr_" target="_blank">Rafa Gyiza Rashieka</a> | 2207049 |
 
 ## How to use
 
