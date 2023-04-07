@@ -56,15 +56,15 @@ function accountInfo (account, rank){
 }
 
 async function getRank(version, region, name, tag, filter) {
-  try {
-    const act = await Val.getMMR({ version, region, name, tag, filter });
-    if (!act.error) {
-      return act.data.final_rank_patched;
+    try {
+        const act = await Val.getMMR({ version, region, name, tag, filter });
+        if (!act.error) {
+            return act.data.final_rank_patched;
+        }
+        console.log(act.status);
+    } catch (error) {
+        console.error(error);
     }
-    console.log(act.status);
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 try {
