@@ -2,6 +2,7 @@ import ValorantApi from 'unofficial-valorant-api';
 import chalk from 'chalk';
 import readline from 'readline';
 import clear from 'clear';
+import { match } from 'assert';
 
 // =======================================
 //
@@ -29,7 +30,6 @@ async function getInput(QUESTION) {
 function accountInfo(account, rank){
     // NAME = account.data.name;
     if(account){
-        REGION = account.data.region;
         LEVEL = account.data.account_level;
         PUUID = account.data.puuid;
         
@@ -51,71 +51,17 @@ function accountInfo(account, rank){
     }
 }
 
-function checkStatus(code) {
-    let err = null;
-    if (code == 404) {
-        err = "Akun tidak ditemukan, pastikan NAMA#TAG sesuai!"
-    } else if (code == 101) {
-        err = "No region found for this Player!"
-    } else if (code == 102) {
-        err = "No matches found, can't get puuid!"
-    } else if (code == 103) {
-        err = "Possible name change detected, can't get puuid. Please play one match, wait 1-2 minutes and try it again!"
-    } else if (code == 104) {
-        err = "Invalid region!"
-    } else if (code == 105) {
-        err = "Invalid filter!"
-    } else if (code == 106) {
-        err = "Invalid gamemode!"
-    } else if (code == 107) {
-        err = "Invalid map!"
-    } else if (code == 108) {
-        err = "Invalid locale!"
-    } else if (code == 109) {
-        err = "Missing name!"
-    } else if (code == 110) {
-        err = "Missing tag!"
-    } else if (code == 111) {
-        err = "Player not found in leaderboard!"
-    } else if (code == 112) {
-        err = "Invalid raw type!"
-    } else if (code == 113) {
-        err = "Invalid match or player id!"
-    } else if (code == 114) {
-        err = "Invalid country code!"
-    } else if (code == 115) {
-        err = "Invalid season!"
-    }
-
-    return err;
-}
-
 async function getRank(version, region, name, tag, filter) {
     try {
         const act = await Val.getMMR({ version, region, name, tag, filter });
         if (act.error) {
-            console.log(checkStatus(act.status));
+            console.log(act.status);
         } else {
             return act.data.final_rank_patched;
         }
     } catch (error) {
         console.error(error);
     }
-}
-
-function convertUnixTime(unix) {
-    const dateObj = new Date(unix * 1000); // Konversi ke objek Date dengan dikalikan 1000 untuk mengubah detik ke milidetik
-    const year = dateObj.getFullYear(); // Ambil tahun
-    const month = dateObj.getMonth() + 1; // Ambil bulan (mulai dari 0, jadi perlu ditambah 1)
-    const date = dateObj.getDate(); // Ambil tanggal
-    const day = dateObj.toLocaleDateString('en-US', { weekday: 'long' }); // Ambil hari dalam bahasa Inggris
-
-    return `${day}, ${date}-${month}-${year}`;
-}
-
-// BIKIN FUNGSI BUAT DAPETIN DETAIL MATCH MENGGUNAKAN MATCHID
-function detailMatch(id){
-    // CODE RIGHT HERE
 }
 
 try {
@@ -131,15 +77,16 @@ try {
     clear();
 
     if (account.error) {
-        console.log(checkStatus(account.status));
+        console.log(account.status);
     } else {
         console.log(`Account Name\t: ${NAME}#${TAG}`);
         console.log(`Region\t\t: ${SERVER}`);
-        console.log(`Level\t: ${LEVEL}\n`);
+        console.log(`Level\t\t: ${LEVEL}`);
         console.log(`Current Rank\t: ${RANK}\n`);
 
         let num = 0;
         matches.data.forEach(match => {
+            // console.log(match.players);
             if (match.metadata.mode == "Competitive" || match.metadata.mode == "Unrated") {
                 const yourPlayer = match.players.all_players.find(player => player.puuid == PUUID);
                 const kda = yourPlayer.stats.kills + "/" + yourPlayer.stats.deaths + "/" + yourPlayer.stats.assists;
@@ -149,17 +96,17 @@ try {
                 let result;
 
                 match.players.all_players.sort((a, b) => b.stats.score - a.stats.score);
-                const index = players.all_players.findIndex(player => player.puuid === PUUID);
+                const index = match.players.all_players.findIndex(player => player.puuid === PUUID);
                 
                 num++;
-                console.log(`-----------------Game ${num}-----------------\n`);
-                console.log(`Tanggal\t: ${convertUnixTime(match.metadata.game_start)}`);
+                console.log(`-----------------Game ${num}-----------------`);
+                console.log(`Tanggal\t: ${match.metadata.game_start}`);
                 console.log(`Map\t: ${match.metadata.map}`);
                 console.log(`Mode\t: ${match.metadata.mode}`);
                 console.log(`Server\t: ${match.metadata.cluster}`);
                 console.log("-----------------DETAIL------------------");
                 console.log(`Team\t: ${team}`);
-                console.log(`#${index}`);
+                console.log(`No\t: #${index+1}`);
                 console.log(`Agent\t: ${agent}`);
                 console.log(`Rank\t: ${current_rank}`);
                 console.log(`KDA\t: ${kda}`);
@@ -190,6 +137,7 @@ try {
             }
         });
     }
+    console.log("Terima kasih telah menggunakan program.");
     process.exit();
 } catch (error) {
     console.error(error.message);
