@@ -167,7 +167,7 @@ try {
                 if (yourPlayer.team == "Red") {
                     console.log(`R. Won\t: ${match.teams.red.rounds_won}`);
                     console.log(`R. Lost\t: ${match.teams.red.rounds_lost}`);
-                    result = result.teams.blue.rounds_won ? "WON" : "LOST";
+                    result = result.teams.red.rounds_won ? "WON" : "LOST";
 
                 } else {
                     console.log(`R. Won\t: ${match.teams.blue.rounds_won}`);
