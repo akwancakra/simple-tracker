@@ -2,7 +2,6 @@ import chalk from 'chalk';
 import clear from 'clear';
 import readline from 'readline';
 import ValorantApi from 'unofficial-valorant-api';
-import { match } from 'assert';
 
 // =======================================
 //
