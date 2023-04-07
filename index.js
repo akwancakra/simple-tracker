@@ -167,12 +167,19 @@ try {
                 if (yourPlayer.team == "Red") {
                     console.log(`R. Won\t: ${match.teams.red.rounds_won}`);
                     console.log(`R. Lost\t: ${match.teams.red.rounds_lost}`);
-                    result = result.teams.red.rounds_won ? "WON" : "LOST";
-
+                    if (match.teams.red.has_won) {
+                        result = "WON";
+                    }else{
+                        result = "LOST";
+                    }
                 } else {
                     console.log(`R. Won\t: ${match.teams.blue.rounds_won}`);
                     console.log(`R. Lost\t: ${match.teams.blue.rounds_lost}`);
-                    result = result.teams.blue.rounds_won ? "WON" : "LOST";
+                    if (match.teams.blue.has_won) {
+                        result = "WON";
+                    }else{
+                        result = "LOST";
+                    }
                 }
 
                 if (result == "WON") {
@@ -183,7 +190,7 @@ try {
             }
         });
     }
-
+    
     let menuChoice;
     do {
         menuChoice = await getInput("Silakan pilih salah satu menu:\n[1] Cari detail pertandingan\n[2] Exit\n");
